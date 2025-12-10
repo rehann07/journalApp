@@ -63,7 +63,11 @@ public class UserScheduler {
                 SentimentData sentimentData = new SentimentData();
                 sentimentData.setEmail(user.getEmail());
                 sentimentData.setSentiment("Sentiment for last 7 days " + mostFrequentSentiment);
-                kafkaTemplate.send("weekly-sentiments",sentimentData.getEmail(),sentimentData);
+                try {
+                    kafkaTemplate.send("weekly-sentiments",sentimentData.getEmail(),sentimentData);
+                } catch (Exception e) {
+                    emailService.sendEmail(sentimentData.getEmail(),"Sentiment for last 7 days ",sentimentData.getSentiment());
+                }
             }
         }
     }
