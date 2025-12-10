@@ -27,15 +27,6 @@ public class UserController {
     @Autowired
     private WeatherService weatherService;
 
-//    @GetMapping
-//    public ResponseEntity<List<User>> getAllUsers(){
-//        List<User> users = userService.getAllUsers();
-//        if (!users.isEmpty()){
-//            return new ResponseEntity<>(users,HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
-
     @PutMapping
     public ResponseEntity<?> updateUser(@RequestBody User user){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

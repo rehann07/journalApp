@@ -58,9 +58,6 @@ public class JournalEntryService {
         return journalEntryRepository.findById(myId);
     }
 
-//    public List<JournalEntry> findByUserName(String userName){
-//        return journalEntryRepository.findByUserName(userName);
-//    }
 }
 
 //controller --> service --> repository
