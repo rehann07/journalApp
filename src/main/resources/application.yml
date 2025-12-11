@@ -1,0 +1,61 @@
+spring:
+  application:
+    name: Journal App
+
+  # --- Kafka Configuration ---
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS}
+
+    properties:
+      security:
+        protocol: SASL_SSL
+      sasl:
+        mechanism: SCRAM-SHA-256
+        jaas:
+          config: org.apache.kafka.common.security.scram.ScramLoginModule required username='${KAFKA_USERNAME}' password='${KAFKA_API_SECRET}';
+        session:
+          timeout:
+            ms: 45000
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: weekly-sentiment-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.rehan.journalApp.model
+
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: 16902
+      password: ${REDIS_PASSWORD}
+
+  profiles:
+    active : dev
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${JAVA_EMAIL}
+    password: ${JAVA_EMAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+logging:
+  level:
+    net:
+      engineeringdigest:
+        journalApp: DEBUG
+
+weather:
+  api:
+    key: ${WEATHER_API_KEY}
