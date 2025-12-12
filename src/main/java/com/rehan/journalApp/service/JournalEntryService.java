@@ -2,7 +2,7 @@ package com.rehan.journalApp.service;
 
 import com.rehan.journalApp.entity.JournalEntry;
 import com.rehan.journalApp.entity.User;
-import com.rehan.journalApp.repostiory.JournalEntryRepository;
+import com.rehan.journalApp.repository.JournalEntryRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

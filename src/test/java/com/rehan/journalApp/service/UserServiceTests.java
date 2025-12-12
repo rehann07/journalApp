@@ -1,6 +1,6 @@
 package com.rehan.journalApp.service;
 
-import com.rehan.journalApp.repostiory.UserRepository;
+import com.rehan.journalApp.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

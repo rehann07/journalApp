@@ -5,7 +5,7 @@ import com.rehan.journalApp.entity.JournalEntry;
 import com.rehan.journalApp.entity.User;
 import com.rehan.journalApp.enums.Sentiment;
 import com.rehan.journalApp.model.SentimentData;
-import com.rehan.journalApp.repostiory.UserRepositoryImpl;
+import com.rehan.journalApp.repository.UserRepositoryImpl;
 import com.rehan.journalApp.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;

@@ -1,9 +1,12 @@
 package com.rehan.journalApp.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import com.rehan.journalApp.api.response.WeatherResponse;
 import com.rehan.journalApp.entity.User;
-import com.rehan.journalApp.repostiory.UserRepository;
+import com.rehan.journalApp.repository.UserRepository;
 import com.rehan.journalApp.service.UserService;
 import com.rehan.journalApp.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-@Tag(name = "User APIs", description = "Read, Update & Delete User")
+@Tag(name = "User APIs", description = "Operations for managing the authenticated user's profile")
 public class UserController {
 
     @Autowired
@@ -28,6 +31,11 @@ public class UserController {
     private WeatherService weatherService;
 
     @PutMapping
+    @Operation(summary = "Update Profile", description = "Update the username or password for the currently authenticated user.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "User profile updated successfully"),
+            @ApiResponse(responseCode = "404", description = "User not found in database")
+    })
     public ResponseEntity<?> updateUser(@RequestBody User user){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
@@ -44,6 +52,10 @@ public class UserController {
     }
 
     @DeleteMapping
+    @Operation(summary = "Delete Account", description = "Permanently delete the authenticated user's account and associated data.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Account deleted successfully")
+    })
     public ResponseEntity<?> deleteUserById(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();
@@ -52,6 +64,8 @@ public class UserController {
     }
 
     @GetMapping
+    @Operation(summary = "Get Greeting & Weather", description = "Returns a personalized greeting message including current weather data for the user's location (Solapur).")
+    @ApiResponse(responseCode = "200", description = "Greeting fetched successfully")
     public ResponseEntity<?> greeting(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String userName = authentication.getName();

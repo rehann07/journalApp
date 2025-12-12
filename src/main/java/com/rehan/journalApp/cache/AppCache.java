@@ -2,7 +2,7 @@ package com.rehan.journalApp.cache;
 
 import jakarta.annotation.PostConstruct;
 import com.rehan.journalApp.entity.ConfigJournalAppEntity;
-import com.rehan.journalApp.repostiory.ConfigJournalAppRepository;
+import com.rehan.journalApp.repository.ConfigJournalAppRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

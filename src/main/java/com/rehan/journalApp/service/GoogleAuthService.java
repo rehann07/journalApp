@@ -1,7 +1,7 @@
 package com.rehan.journalApp.service;
 
 import com.rehan.journalApp.entity.User;
-import com.rehan.journalApp.repostiory.UserRepository;
+import com.rehan.journalApp.repository.UserRepository;
 import com.rehan.journalApp.utils.JwtUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

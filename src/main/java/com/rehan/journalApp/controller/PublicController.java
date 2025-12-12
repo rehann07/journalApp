@@ -1,9 +1,12 @@
 package com.rehan.journalApp.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import com.rehan.journalApp.dto.UserDTO;
 import com.rehan.journalApp.entity.User;
-import com.rehan.journalApp.repostiory.UserRepository;
+import com.rehan.journalApp.repository.UserRepository;
 import com.rehan.journalApp.service.UserDetailsServiceImpl;
 import com.rehan.journalApp.service.UserService;
 import com.rehan.journalApp.utils.JwtUtil;
@@ -21,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/public")
-@Tag(name = "Public APIs")
+@Tag(name = "Public APIs", description = "Endpoints for user registration, login, and application health checks")
 public class PublicController {
 
     private static final Logger log = LoggerFactory.getLogger(PublicController.class);
@@ -45,12 +48,18 @@ public class PublicController {
     private UserRepository userRepository;
 
     @GetMapping("/health-check")
+    @Operation(summary = "Health Check", description = "Simple endpoint to verify if the server is running.")
     public String health(){
         log.info("Health is ok !");
         return  "Ok";
     }
 
     @PostMapping("/signup")
+    @Operation(summary = "Register New User", description = "Creates a new user account with username, password, and email preferences.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "User registered successfully"),
+            @ApiResponse(responseCode = "400", description = "Username already exists or invalid input")
+    })
     public ResponseEntity<UserDTO> signUp(@RequestBody UserDTO user){
         try {
             User newUser = new User();
@@ -66,6 +75,11 @@ public class PublicController {
     }
 
     @PostMapping("/login")
+    @Operation(summary = "Login", description = "Authenticates a user and returns a JSON Web Token (JWT).")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Login successful, returns Bearer Token"),
+            @ApiResponse(responseCode = "400", description = "Invalid username or password")
+    })
     public ResponseEntity<String> login(@RequestBody User user) {
         try {
             Authentication authentication = authenticationManager.authenticate(

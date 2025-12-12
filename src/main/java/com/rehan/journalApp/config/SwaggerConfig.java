@@ -23,7 +23,7 @@ public class SwaggerConfig {
                         .description("By Rehan")
                 )
                 .servers(Arrays.asList(
-                        new Server().url("http://localhost:8080").description("local")
+                        new Server().url("/journal").description("Default Server URL")
                 ))
                 .tags(Arrays.asList(
                         new Tag().name("Public APIs"),
