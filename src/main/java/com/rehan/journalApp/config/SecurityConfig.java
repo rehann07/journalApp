@@ -31,9 +31,14 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         return http.authorizeHttpRequests(request -> request
-                        // Allow Swagger UI & API Docs (Public Access)
+                        // 1. Allow Swagger UI & API Docs
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+
+                        // 2. Allow Public endpoints AND Google Auth endpoints
                         .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/auth/google/**").permitAll()
+
+                        // 3. Secure everything else
                         .requestMatchers("/journal/**", "/user/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
