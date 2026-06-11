@@ -76,3 +76,6 @@ jwt:
 
 app:
   frontend-url: ${FRONTEND_URL}
+
+google:
+  redirect-uri: ${GOOGLE_REDIRECT_URI}

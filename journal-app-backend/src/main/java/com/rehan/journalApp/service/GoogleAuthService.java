@@ -27,12 +27,11 @@ public class GoogleAuthService {
     @Value("${spring.security.oauth2.client.registration.google.client-secret}")
     private String clientSecret;
 
-    // Best Practice: Move external API URLs to constants or config properties
     private static final String GOOGLE_TOKEN_ENDPOINT = "https://oauth2.googleapis.com/token";
     private static final String GOOGLE_USERINFO_ENDPOINT = "https://oauth2.googleapis.com/tokeninfo?id_token=";
 
-    // Make sure this matches exactly what you set in Google Cloud Console
-    private static final String REDIRECT_URI = "https://developers.google.com/oauthplayground";
+    @Value("${google.redirect-uri}")
+    private String redirectUri;
 
     @Autowired
     private RestTemplate restTemplate;
@@ -90,7 +89,7 @@ public class GoogleAuthService {
             params.add("code", code);
             params.add("client_id", clientId);
             params.add("client_secret", clientSecret);
-            params.add("redirect_uri", REDIRECT_URI);
+            params.add("redirect_uri", redirectUri);
             params.add("grant_type", "authorization_code");
 
             HttpHeaders headers = new HttpHeaders();
