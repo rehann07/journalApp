@@ -51,7 +51,7 @@
 ## 📂 Project Structure
 
 ```plaintext
-journalApp-frontend/
+journal-app-frontend/
 ├── public/                 # Static assets (Favicon)
 ├── src/
 │   ├── api/                
