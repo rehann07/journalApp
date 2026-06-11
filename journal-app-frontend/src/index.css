@@ -1,0 +1,78 @@
+/* Google Fonts — DM Serif Display (headings) + DM Sans (body) */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  /* Apply DM Sans as the default body font */
+  html {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* DM Serif Display for font-serif (used on headings) */
+  .font-serif {
+    font-family: 'DM Serif Display', Georgia, serif;
+  }
+
+  /* Smooth dark mode transitions */
+  * {
+    transition-property: background-color, border-color;
+    transition-duration: 150ms;
+    transition-timing-function: ease;
+  }
+
+  /* Don't animate layout properties */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* Tailwind v4 uses CSS variables instead of the theme() function */
+  ::selection {
+    background-color: var(--color-teal-200);
+    color: var(--color-teal-900);
+  }
+
+  .dark ::selection {
+    background-color: var(--color-teal-800);
+    color: var(--color-teal-100);
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--color-slate-300);
+    border-radius: 9999px;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    background-color: var(--color-slate-700);
+  }
+}
+
+@layer utilities {
+  .animate-slide-up {
+    animation: slide-up 0.2s ease forwards;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
