@@ -287,4 +287,4 @@ Run unit and integration tests using the Maven wrapper:
 
 This project is licensed under the **MIT License**.
 
-See the [`LICENSE`](https://www.google.com/search?q=.%2FLICENSE) file for full details.
+See the [LICENSE](./LICENSE) file for full details.
