@@ -15,7 +15,7 @@ public class EmailServiceTests {
         emailService.sendEmail(
                 "@gmail.com",
                 "Testing java mail sender",
-                "Hi, aap kaise hain ?"
+                "Hi, hello?"
                 );
     }
 }
