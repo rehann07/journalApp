@@ -43,7 +43,7 @@ To run the full stack locally, you will need two terminal windows. Ensure you ha
 ### 1. Start the Backend
 Navigate to the backend directory, configure your `.env` variables (as specified in the backend README), and run the Spring Boot server:
 ```bash
-cd journalApp-backend
+cd journal-app-backend
 ./mvnw spring-boot:run
 
 ```
@@ -55,7 +55,7 @@ cd journalApp-backend
 Open a new terminal, navigate to the frontend directory, install dependencies, and start the Vite development server:
 
 ```bash
-cd journalApp-frontend
+cd journal-app-frontend
 npm install
 npm run dev
 
