@@ -8,13 +8,13 @@
 
 ## 📑 Table of Contents
 
-1. [Key Features](https://www.google.com/search?q=%23-key-features)
-2. [Architecture & Workflow](https://www.google.com/search?q=%23-architecture--workflow)
-3. [Configuration & Setup](https://www.google.com/search?q=%23-configuration--setup)
-4. [API Documentation](https://www.google.com/search?q=%23-api-documentation)
-5. [Project Structure](https://www.google.com/search?q=%23-project-structure)
-6. [Tech Stack](https://www.google.com/search?q=%23-tech-stack)
-7. [Testing](https://www.google.com/search?q=%23-testing)
+1. [Key Features](#-key-features)
+2. [Architecture & Workflow](#-architecture--workflow)
+3. [Configuration & Setup](#-configuration--setup)
+4. [API Documentation](#-api-documentation)
+5. [Project Structure](#-project-structure)
+6. [Tech Stack](#-tech-stack)
+7. [Testing](#-testing)
 
 ---
 
@@ -190,7 +190,7 @@ Below is the complete list of REST endpoints categorized by module.
 
 ---
 
-## ## 🛠 Tech Stack
+## 🛠 Tech Stack
 
 ### Backend Framework
 
@@ -279,7 +279,7 @@ Run unit and integration tests using the Maven wrapper:
 
 **Rehan Naikwadi**
 
-* GitHub: [@rehann07](https://www.google.com/search?q=https%3A%2F%2Fgithub.com%2Frehann07)
+GitHub: [@rehann07](https://www.google.com/search?q=https%3A%2F%2Fgithub.com%2Frehann07)
 
 ---
 
