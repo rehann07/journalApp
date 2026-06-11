@@ -1,22 +1,19 @@
 package com.rehan.journalApp.scheduler;
 
-import com.rehan.journalApp.cache.AppCache;
 import com.rehan.journalApp.entity.JournalEntry;
 import com.rehan.journalApp.entity.User;
 import com.rehan.journalApp.enums.Sentiment;
 import com.rehan.journalApp.model.SentimentData;
 import com.rehan.journalApp.repository.UserRepositoryImpl;
 import com.rehan.journalApp.service.EmailService;
+import com.rehan.journalApp.service.SentimentAiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Component
@@ -28,52 +25,55 @@ public class UserScheduler {
     @Autowired
     private UserRepositoryImpl userRepository;
 
-
     @Autowired
-    private AppCache appCache;
+    private SentimentAiService sentimentAiService;
 
     @Autowired
     private KafkaTemplate<String,SentimentData> kafkaTemplate;
 
     @Scheduled(cron = "0 0 9 * * SUN")
-    public void fetchUsersAndSendSaMail(){
+    public void fetchUsersAndSendSaMail() {
         List<User> users = userRepository.getUserForSA();
-        for (User user:users){
+
+        for (User user : users) {
             List<JournalEntry> journalEntries = user.getJournalEntries();
-            List<Sentiment> sentiments = journalEntries.stream().filter(x -> x.getDate().isAfter(LocalDateTime.now().minus(7, ChronoUnit.DAYS))).map(x->x.getSentiment()).collect(Collectors.toList());
-            Map<Sentiment,Integer> sentimentCounts = new HashMap<>();
 
-            for (Sentiment sentiment : sentiments){
-                if (sentiment!=null){
-                    sentimentCounts.put(sentiment,sentimentCounts.getOrDefault(sentiment,0)+1);
-                }
+            // 1. Filter out only the journal entries written in the last 7 days
+            List<JournalEntry> weeklyEntries = journalEntries.stream()
+                    .filter(entry -> entry.getDate().isAfter(LocalDateTime.now().minus(7, ChronoUnit.DAYS)))
+                    .collect(Collectors.toList());
+
+            // 2. If the user didn't write anything this week, don't burn AI tokens or send an empty email
+            if (weeklyEntries.isEmpty()) {
+                continue;
             }
 
-            Sentiment mostFrequentSentiment = null;
-            int maxCount = 0;
+            // 3. Concatenate all journal text contents into a single block of text
+            String compiledWeeklyText = weeklyEntries.stream()
+                    .map(entry -> "- " + entry.getContent())
+                    .collect(Collectors.joining("\n\n"));
 
-            for (Map.Entry<Sentiment, Integer> entry : sentimentCounts.entrySet()){
-                if(entry.getValue() > maxCount){
-                    maxCount = entry.getValue();
-                    mostFrequentSentiment = entry.getKey();
-                }
-            }
+            // 4. Send the compiled text block to Groq to generate a deep emotional synthesis
+            String aiWeeklySummaryReport = sentimentAiService.generateWeeklyReport(user.getUserName(), compiledWeeklyText);
 
-            if (mostFrequentSentiment != null){
+            // 5. Package the AI response and ship it to your Kafka ecosystem
+            if (aiWeeklySummaryReport != null && !aiWeeklySummaryReport.isEmpty()) {
                 SentimentData sentimentData = new SentimentData();
                 sentimentData.setEmail(user.getEmail());
-                sentimentData.setSentiment("Sentiment for last 7 days " + mostFrequentSentiment);
+                sentimentData.setSentiment(aiWeeklySummaryReport);
+
                 try {
-                    kafkaTemplate.send("weekly-sentiments",sentimentData.getEmail(),sentimentData);
+                    kafkaTemplate.send("weekly-sentiments", sentimentData.getEmail(), sentimentData);
                 } catch (Exception e) {
-                    emailService.sendEmail(sentimentData.getEmail(),"Sentiment for last 7 days ",sentimentData.getSentiment());
+                    // Fallback to sending direct email if Kafka breaks
+                    emailService.sendEmail(
+                            sentimentData.getEmail(),
+                            "Your Weekly AI Mindset & Sentiment Synthesis",
+                            sentimentData.getSentiment()
+                    );
                 }
             }
         }
     }
 
-    @Scheduled(cron = "0 0/10 * ?  * *")
-    public void clearAppCache(){
-        appCache.init();
-    }
 }

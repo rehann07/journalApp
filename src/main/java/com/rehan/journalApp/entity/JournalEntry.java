@@ -1,5 +1,7 @@
 package com.rehan.journalApp.entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.mongodb.lang.NonNull;
 import com.rehan.journalApp.enums.Sentiment;
 import org.bson.types.ObjectId;
@@ -12,6 +14,7 @@ import java.time.LocalDateTime;
 public class JournalEntry {
 
     @Id
+    @JsonSerialize(using = ToStringSerializer.class)
     private ObjectId id;
 
     @NonNull

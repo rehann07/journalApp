@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import com.rehan.journalApp.cache.AppCache;
 import com.rehan.journalApp.entity.User;
 import com.rehan.journalApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,6 @@ public class AdminController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private AppCache appCache;
 
     @GetMapping("/all-users")
     @Operation(summary = "Get all users", description = "Retrieve a list of all registered users in the system.")
@@ -44,13 +40,6 @@ public class AdminController {
     @ApiResponse(responseCode = "200", description = "Admin user created successfully")
     public void createUser(@RequestBody User user){
         userService.registerAdmin(user);
-    }
-
-    @GetMapping("clear-app-cache")
-    @Operation(summary = "Clear App Cache", description = "Force a re-initialization of the in-memory application cache (e.g., configuration settings).")
-    @ApiResponse(responseCode = "200", description = "Cache cleared and re-initialized")
-    public void clearAppCache(){
-        appCache.init();
     }
 
 }

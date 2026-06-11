@@ -18,7 +18,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -85,14 +84,21 @@ public class PublicController {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(user.getUserName(), user.getPassword()));
 
-            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            User userFromDb = userService.findUserName(user.getUserName());
 
-            String jwt = jwtUtil.generateToken(userDetails.getUsername());
+            String jwt = jwtUtil.generateToken(userFromDb);
             return new ResponseEntity<>(jwt, HttpStatus.OK);
+        } catch (org.springframework.security.core.AuthenticationException e) {
+            // Catch routine authentication errors cleanly (wrong password, user doesn't exist)
+            log.warn("Authentication failed for user attempt: {}", user.getUserName());
+            return new ResponseEntity<>("Error: Invalid username or password.", HttpStatus.BAD_REQUEST);
+
         } catch (Exception e) {
-            log.error("Exception occurred while createAuthenticationToken ", e);
-            e.printStackTrace();
-            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+            // Safely catch structural/server breaks (DB down, Kafka broken, Weak JWT keys)
+            log.error("SYSTEM CRASH occurred during login flow: ", e);
+
+            // Mask the trace from the frontend client browser so it doesn't leak stack details
+            return new ResponseEntity<>("Error: Something went wrong on our servers. Please try again later.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

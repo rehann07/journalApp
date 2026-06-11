@@ -10,9 +10,22 @@ spring:
             client-id: ${GOOGLE_CLIENT_ID}
             client-secret: ${GOOGLE_CLIENT_SECRET}
 
+  # --- Groq AI Configuration ---
+  ai:
+    openai:
+      api-key: ${GROQ_API_KEY}
+      base-url: https://api.groq.com/openai
+      chat:
+        options:
+          model: llama-3.1-8b-instant
+
   # --- Kafka Configuration ---
   kafka:
     bootstrap-servers: ${KAFKA_SERVERS}
+
+    ssl:
+      trust-store-type: PEM
+      trust-store-location: classpath:ca.pem
 
     properties:
       security:
@@ -37,12 +50,6 @@ spring:
             trusted:
               packages: com.rehan.journalApp.model
 
-  data:
-    redis:
-      host: ${REDIS_HOST}
-      port: 16902
-      password: ${REDIS_PASSWORD}
-
   profiles:
     active : dev
 
@@ -64,6 +71,8 @@ logging:
       engineeringdigest:
         journalApp: DEBUG
 
-weather:
-  api:
-    key: ${WEATHER_API_KEY}
+jwt:
+  secret: ${JWT_SECRET}
+
+app:
+  frontend-url: ${FRONTEND_URL}

@@ -47,7 +47,7 @@ public class GoogleAuthService {
     private JwtUtil jwtUtil;
 
     /**
-     * Orchestrates the Google Login process.
+     * Orchestrates  the GoogleLogin process.
      * @param code The authorization code from the frontend/Google.
      * @return A JWT token for the user.
      * @throws Exception if authentication fails.
@@ -81,7 +81,7 @@ public class GoogleAuthService {
         }
 
         // 4. Generate JWT
-        return jwtUtil.generateToken(user.getUserName());
+        return jwtUtil.generateToken(user);
     }
 
     private String getGoogleIdToken(String code) {

@@ -17,6 +17,6 @@ public class SentimentConsumerService {
     }
 
     public void sendEmail(SentimentData sentimentData){
-        emailService.sendEmail(sentimentData.getEmail(),"Sentiment for last 7 days ",sentimentData.getSentiment());
+        emailService.sendEmail(sentimentData.getEmail(),"Your Weekly AI Mindset & Sentiment Synthesis",sentimentData.getSentiment());
     }
 }

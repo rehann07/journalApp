@@ -123,7 +123,7 @@ public class JournalEntryController {
                 JournalEntry old = journalEntry.get();
                 old.setTitle(newEntry.getTitle() != null && !newEntry.getTitle().equals("") ? newEntry.getTitle() : old.getTitle());
                 old.setContent(newEntry.getContent() != null && !newEntry.getContent().equals("") ? newEntry.getContent() : old.getContent());
-                journalEntryService.saveEntry(old);
+                journalEntryService.updateEntry(old, userName);
                 return new ResponseEntity<>(journalEntry.get(), HttpStatus.OK);
             }
         }
