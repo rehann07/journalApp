@@ -18,9 +18,9 @@
 
 This project is structured as a monorepo. Detailed setup instructions, environment configurations, and deep dives into the architecture can be found in their respective directories:
 
-* 🎨 [**Frontend Documentation (`/journalApp-frontend`)**](./journal-app-frontend/README.md)
+* 🎨 [**Frontend Documentation (`/journal-app-frontend`)**](./journal-app-frontend/README.md)
   * Covers React context, Vite setup, Tailwind v4 styling, and Axios interceptors.
-* ⚙️ [**Backend Documentation (`/journalApp-backend`)**](./journal-app-backend/README.md)
+* ⚙️ [**Backend Documentation (`/journal-app-backend`)**](./journal-app-backend/README.md)
   * Covers Spring Boot architecture, MongoDB transactions, Spring AI / Groq integration, and Kafka event streaming.
 
 ---
