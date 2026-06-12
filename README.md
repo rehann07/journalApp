@@ -19,7 +19,7 @@
 The application is fully deployed and accessible online:
 
 * 🚀 **Frontend (Vercel):** [https://journal-app-ten-gilt.vercel.app](https://journal-app-ten-gilt.vercel.app)
-* ⚙️ **Backend API (Render):** [https://journal-app-api-8pi1.onrender.com](https://journal-app-api-8pi1.onrender.com)
+* ⚙️ **Backend API (Render - Swagger UI):** [https://journal-app-api-8pi1.onrender.com/journal/swagger-ui/index.html](https://journal-app-api-8pi1.onrender.com/journal/swagger-ui/index.html)
 
 ---
 
