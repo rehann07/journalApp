@@ -14,6 +14,15 @@
 
 ---
 
+## 🌍 Live Environments
+
+The application is fully deployed and accessible online:
+
+* 🚀 **Frontend (Vercel):** [https://journal-app-ten-gilt.vercel.app](https://journal-app-ten-gilt.vercel.app)
+* ⚙️ **Backend API (Render):** [https://journal-app-api-8pi1.onrender.com](https://journal-app-api-8pi1.onrender.com)
+
+---
+
 ## 📖 Documentation Directory
 
 This project is structured as a monorepo. Detailed setup instructions, environment configurations, and deep dives into the architecture can be found in their respective directories:
@@ -21,18 +30,18 @@ This project is structured as a monorepo. Detailed setup instructions, environme
 * 🎨 [**Frontend Documentation (`/journal-app-frontend`)**](./journal-app-frontend/README.md)
   * Covers React context, Vite setup, Tailwind v4 styling, and Axios interceptors.
 * ⚙️ [**Backend Documentation (`/journal-app-backend`)**](./journal-app-backend/README.md)
-  * Covers Spring Boot architecture, MongoDB transactions, Spring AI / Groq integration, and Kafka event streaming.
+  * Covers Spring Boot architecture, MongoDB transactions, Spring AI / Groq integration, Dockerization, and Kafka event streaming.
 
 ---
 
-## 🏗 High-Level System Architecture
+## 🏗 High-Level Cloud Architecture
 
-The platform operates on a decoupled, stateless architecture ensuring high performance and security:
+The platform operates on a decoupled, cloud-native architecture ensuring high performance and security:
 
-1. **Client Layer:** A React 19 SPA running on Vite, utilizing Tailwind CSS for a fully responsive, dark-mode enabled UI.
+1. **Client Layer:** A React 19 SPA running on **Vite**, utilizing Tailwind CSS for a fully responsive UI, deployed globally via **Vercel's** edge network.
 2. **Gateway & Security:** REST APIs secured via Hybrid Authentication (Google OAuth2 & standard BCrypt/JWT). 
-3. **Core Services:** A Spring Boot 3.x backend handling business logic, user management, and MongoDB persistence.
-4. **AI & Event Streaming:** Asynchronous processing using Apache Kafka to distribute LLM-generated (Llama 3.1 via Groq) weekly emotional synthesis reports via Email.
+3. **Core Services:** A Dockerized **Spring Boot 3.x** backend hosted on **Render**, handling business logic, user management, and persistence to a managed **MongoDB Atlas** cluster.
+4. **AI & Event Streaming:** Asynchronous processing using an **Aiven Apache Kafka** cluster to distribute LLM-generated (Llama 3.1 via **Groq**) weekly emotional synthesis reports.
 
 ---
 
@@ -45,7 +54,6 @@ Navigate to the backend directory, configure your `.env` variables (as specified
 ```bash
 cd journal-app-backend
 ./mvnw spring-boot:run
-
 ```
 
 *The API will start on `http://localhost:8080/journal*`
@@ -58,7 +66,6 @@ Open a new terminal, navigate to the frontend directory, install dependencies, a
 cd journal-app-frontend
 npm install
 npm run dev
-
 ```
 
 *The UI will be accessible at `http://localhost:5173*`
@@ -69,17 +76,17 @@ npm run dev
 
 **Frontend:** React 19, Vite, Tailwind CSS v4, React Router v7, Axios
 
-**Backend:** Java 21, Spring Boot 3.x, Spring Security, Spring AI
+**Backend:** Java 21, Spring Boot 3.3.x, Spring Security, Spring AI, Docker
 
-**Database:** MongoDB (with Transaction Management)
+**Database:** MongoDB Atlas (Cloud NoSQL with Transaction Management)
 
-**Event Streaming:** Apache Kafka (SASL_SSL / SCRAM-SHA-256)
+**Event Streaming:** Aiven Apache Kafka (SASL_SSL / SCRAM-SHA-256)
 
 **Artificial Intelligence:** Groq API (Llama 3.1)
 
 **Authentication:** JWT (JSON Web Tokens), Google OAuth2
 
-**Build & API Tools:** Maven, Swagger / OpenAPI 3
+**Cloud Hosting:** Vercel (Frontend), Render (Backend)
 
 ---
 
@@ -87,7 +94,7 @@ npm run dev
 
 **Rehan Naikwadi**
 
- GitHub: [@rehann07](https://www.google.com/search?q=https://github.com/rehann07)
+GitHub: [@rehann07](https://www.google.com/search?q=https://github.com/rehann07)
 
 ---
 
