@@ -94,7 +94,7 @@ npm run dev
 
 **Rehan Naikwadi**
 
-GitHub: [@rehann07](https://www.google.com/search?q=https://github.com/rehann07)
+GitHub: [@rehann07](https://github.com/rehann07)
 
 ---
 
